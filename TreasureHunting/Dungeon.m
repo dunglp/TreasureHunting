@@ -73,7 +73,7 @@
     [self identifyCaves];
     
     if (self.connectedCave) {
-        [self connectToMainCavern];
+        [self addToMainCave];
     } else {
         [self removeDisconnectedCaverns];
     }
@@ -160,7 +160,7 @@
                        (coordinate.y * self.tileSize.height + self.tileSize.height / 2.0f));
 }
 
-- (NSUInteger) countWallMooreNeighborsFromGridCoordinate: (CGPoint) coordinate
+- (NSUInteger) countNeighborsWallFromGridCoordinate: (CGPoint) coordinate
 {
     NSUInteger wallCount = 0;
     
@@ -183,40 +183,32 @@
 
 - (void) doTransitionStep
 {
-    // 1
-    NSMutableArray *newGrid = [NSMutableArray arrayWithCapacity:(NSUInteger)self.mapSize.height];
+    NSMutableArray *newMap = [NSMutableArray arrayWithCapacity: (NSUInteger) self.mapSize.height];
     
-    // 2
-    for (NSUInteger y = 0; y < self.mapSize.height; y++) {
+    for (NSUInteger x = 0; x < self.mapSize.height; x++) {
         NSMutableArray *newRow = [NSMutableArray arrayWithCapacity:(NSUInteger)self.mapSize.width];
-        for (NSUInteger x = 0; x < self.mapSize.width; x++) {
-            CGPoint coordinate = CGPointMake(x, y);
+        for (NSUInteger y = 0; y < self.mapSize.width; y++) {
+            CGPoint coordinate = CGPointMake(y, x);
             
-            // 3
-            NSUInteger mooreNeighborWallCount = [self countWallMooreNeighborsFromGridCoordinate:coordinate];
+            NSUInteger neighborWallCount = [self countNeighborsWallFromGridCoordinate:coordinate];
             
-            // 4
             Node *oldCell = [self caveCellFromGridCoordinate:coordinate];
             Node *newCell = [[Node alloc] initWithCoordinate:coordinate];
             
-            // 5
-            // 5a
             if (oldCell.nodeType == Wall) {
-                newCell.nodeType = (mooreNeighborWallCount < self.toFloorCondition) ? Floor : Wall;
+                newCell.nodeType = (neighborWallCount < self.toFloorCondition) ? Floor : Wall;
             } else {
-                // 5b
-                newCell.nodeType = (mooreNeighborWallCount > self.toWallCondition) ? Wall : Floor;
+                newCell.nodeType = (neighborWallCount > self.toWallCondition) ? Wall : Floor;
             }
             [newRow addObject:newCell];
         }
-        [newGrid addObject:newRow];
+        [newMap addObject:newRow];
     }
     
-    // 6
-    self.map = newGrid;
+    self.map = newMap;
 }
 
-- (void) floodFillCavern: (NSMutableArray *) array fromCoordinate: (CGPoint) coordinate
+- (void) floodFillCave: (NSMutableArray *) array fromCoordinate: (CGPoint) coordinate
               fillNumber: (NSInteger) fillNumber
 {
     Node *cell = (Node *)array[(NSUInteger)coordinate.y][(NSUInteger)coordinate.x];
@@ -229,19 +221,19 @@
     [[self.caves lastObject] addObject:cell];
     
     if (coordinate.x > 0) {
-        [self floodFillCavern:array fromCoordinate:CGPointMake(coordinate.x - 1, coordinate.y)
+        [self floodFillCave:array fromCoordinate:CGPointMake(coordinate.x - 1, coordinate.y)
                    fillNumber:fillNumber];
     }
     if (coordinate.x < self.mapSize.width - 1) {
-        [self floodFillCavern:array fromCoordinate:CGPointMake(coordinate.x + 1, coordinate.y)
+        [self floodFillCave:array fromCoordinate:CGPointMake(coordinate.x + 1, coordinate.y)
                    fillNumber:fillNumber];
     }
     if (coordinate.y > 0) {
-        [self floodFillCavern:array fromCoordinate:CGPointMake(coordinate.x, coordinate.y - 1)
+        [self floodFillCave:array fromCoordinate:CGPointMake(coordinate.x, coordinate.y - 1)
                    fillNumber:fillNumber];
     }
     if (coordinate.y < self.mapSize.height - 1) {
-        [self floodFillCavern:array fromCoordinate:CGPointMake(coordinate.x, coordinate.y + 1)
+        [self floodFillCave:array fromCoordinate:CGPointMake(coordinate.x, coordinate.y + 1)
                    fillNumber:fillNumber];
     }
 }
@@ -269,7 +261,7 @@
         for (NSUInteger x = 0; x < self.mapSize.width; x++) {
             if (((Node *)floodFillArray[y][x]).nodeType == Floor) {
                 [self.caves addObject:[NSMutableArray array]];
-                [self floodFillCavern:floodFillArray fromCoordinate:CGPointMake(x, y) fillNumber:fillNumber];
+                [self floodFillCave:floodFillArray fromCoordinate:CGPointMake(x, y) fillNumber:fillNumber];
                 fillNumber++;
             }
         }
@@ -277,32 +269,32 @@
     
 }
 
-- (NSInteger)mainCavernIndex
+- (NSInteger) mainCaveIndex
 {
-    NSInteger mainCavernIndex = -1;
-    NSUInteger maxCavernSize = 0;
+    NSInteger mainCaveIndex = -1;
+    NSUInteger maxCaveSize = 0;
     
     for (NSUInteger i = 0; i < [self.caves count]; i++) {
         NSArray *caveCells = (NSArray *)self.caves[i];
         NSUInteger caveCellsCount = [caveCells count];
         
-        if (caveCellsCount > maxCavernSize) {
-            maxCavernSize = caveCellsCount;
-            mainCavernIndex = i;
+        if (caveCellsCount > maxCaveSize) {
+            maxCaveSize = caveCellsCount;
+            mainCaveIndex = i;
         }
     }
     
-    return mainCavernIndex;
+    return mainCaveIndex;
 }
 
 - (void) removeDisconnectedCaverns
 {
-    NSInteger mainCavernIndex = [self mainCavernIndex];
+    NSInteger mainCaveIndex = [self mainCaveIndex];
     NSUInteger cavesCount = [self.caves count];
     
     if (cavesCount > 0) {
         for (NSUInteger i = 0; i < cavesCount; i++) {
-            if (i != mainCavernIndex) {
+            if (i != mainCaveIndex) {
                 NSArray *array = (NSArray *)self.caves[i];
                 
                 for (Node *cell in array) {
@@ -313,32 +305,30 @@
     }
 }
 
-- (void)connectToMainCavern
+- (void) addToMainCave
 {
-    NSUInteger mainCavernIndex = [self mainCavernIndex];
+    NSUInteger mainCaveIndex = [self mainCaveIndex];
     
-    NSArray *mainCavern = (NSArray *)self.caves[mainCavernIndex];
+    NSArray *mainCave = (NSArray *)self.caves[mainCaveIndex];
     
     for (NSUInteger cavernIndex = 0; cavernIndex < [self.caves count]; cavernIndex++) {
-        if (cavernIndex != mainCavernIndex) {
+        if (cavernIndex != mainCaveIndex) {
             NSArray *originCavern = self.caves[cavernIndex];
             Node *originCell = (Node *)originCavern[arc4random() % [originCavern count]];
-            Node *destinationCell = (Node *)mainCavern[arc4random() % [mainCavern count]];
+            Node *destinationCell = (Node *)mainCave[arc4random() % [mainCave count]];
             [self createPathBetweenOrigin:originCell destination:destinationCell];
         }
     }
 }
 
-// Added inList parameter as this implementation does not use properties to store
-// open and closed lists.
-- (void)insertStep:(AStarPathFinding *)step inList:(NSMutableArray *)list
+- (void) insertNode: (AStarPathFinding *)step toList:(NSMutableArray *)list
 {
-    NSInteger stepFScore = [step fScore];
+    NSInteger stepFScore = [step score];
     NSInteger count = [list count];
     NSInteger i = 0;
     
     for (; i < count; i++) {
-        if (stepFScore <= [[list objectAtIndex:i] fScore]) {
+        if (stepFScore <= [[list objectAtIndex:i] score]) {
             break;
         }
     }
@@ -346,24 +336,9 @@
     [list insertObject:step atIndex:i];
 }
 
-- (NSInteger)costToMoveFromStep:(AStarPathFinding *)fromStep toAdjacentStep:(AStarPathFinding *)toStep
-{
-    // Always returns one, as it is equally expensive to move either up, down, left or right.
-    return 1;
-}
 
-- (NSInteger)computeHScoreFromCoordinate:(CGPoint)fromCoordinate toCoordinate:(CGPoint)toCoordinate
-{
-    // Get the cell at the toCoordinate to calculate the hScore
-    Node *cell = [self caveCellFromGridCoordinate:toCoordinate];
-    
-    // It is 10 times more expensive to move through wall cells than floor cells.
-    NSUInteger multiplier = cell.nodeType = Wall ? 10 : 1;
-    
-    return multiplier * (abs(toCoordinate.x - fromCoordinate.x) + abs(toCoordinate.y - fromCoordinate.y));
-}
 
-- (NSArray *)adjacentCellsCoordinateForCellCoordinate:(CGPoint)cellCoordinate
+- (NSArray *) neighbourCells:(CGPoint)cellCoordinate
 {
     NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:4];
     
@@ -394,156 +369,118 @@
     return [NSArray arrayWithArray:tmp];
 }
 
-- (void)createPathBetweenOrigin:(Node *)originCell destination:(Node *)destinationCell
+- (void) createPathBetweenOrigin:(Node *)originCell destination:(Node *)destinationCell
 {
-    NSMutableArray *openSteps = [NSMutableArray array];
-    NSMutableArray *closedSteps = [NSMutableArray array];
+    NSMutableArray *openList = [NSMutableArray array];
+    NSMutableArray *closedLists = [NSMutableArray array];
     
-    [self insertStep:[[AStarPathFinding alloc] initWithPosition:originCell.coordinate] inList:openSteps];
+    [self insertNode:[[AStarPathFinding alloc] initWithPosition:originCell.coordinate] toList:openList];
     
-    do {
-        // Get the lowest F cost step.
-        // Because the list is ordered, the first step is always the one with the lowest F cost.
-        AStarPathFinding *currentStep = [openSteps firstObject];
+    while ([openList count] != 0)
+    {
+        AStarPathFinding *currentNode = [openList firstObject];
         
-        // Add the current step to the closed list
-        [closedSteps addObject:currentStep];
+        [closedLists addObject:currentNode];
+        [openList removeObjectAtIndex:0];
         
-        // Remove it from the open list
-        [openSteps removeObjectAtIndex:0];
-        
-        // If the currentStep is the desired cell coordinate, we are done!
-        if (CGPointEqualToPoint(currentStep.position, destinationCell.coordinate)) {
-            // Turn the path into floors to connect the caverns
-            do {
-                if (currentStep.parent != nil) {
-                    Node *cell = [self caveCellFromGridCoordinate:currentStep.position];
-                    cell.nodeType = Floor;
-                }
-                currentStep = currentStep.parent; // Go backwards
-            } while (currentStep != nil);
+        if (CGPointEqualToPoint(currentNode.position, destinationCell.coordinate)) {
+            [self constructMovePath:currentNode];
             break;
         }
         
-        // Get the adjacent cell coordinates of the current step
-        NSArray *adjSteps = [self adjacentCellsCoordinateForCellCoordinate:currentStep.position];
+        NSArray *neighbours = [self neighbourCells:currentNode.position];
         
-        for (NSValue *v in adjSteps) {
-            AStarPathFinding *step = [[AStarPathFinding alloc] initWithPosition:[v CGPointValue]];
+        for (NSValue *n in neighbours) {
+            AStarPathFinding *node = [[AStarPathFinding alloc] initWithPosition:[n CGPointValue]];
             
-            // Check if the step isn't already in the closed set
-            if ([closedSteps containsObject:step]) {
-                continue; // ignore it
+            if ([closedLists containsObject:node]) {
+                continue;
             }
             
-            // Compute the cost form the current step to that step
-            NSInteger moveCost = [self costToMoveFromStep:currentStep toAdjacentStep:step];
+            NSInteger moveCost = [AStarPathFinding computeCostFromNode:currentNode toNode:node];
             
-            // Check if the step is already in the open list
-            NSUInteger index = [openSteps indexOfObject:step];
+            NSUInteger index = [openList indexOfObject:node];
             
-            if (index == NSNotFound) { // Not on the open list, so add it
+            if (index != NSNotFound) {
+                node = [openList objectAtIndex:index];
                 
-                // Set the current step as the parent
-                step.parent = currentStep;
-                
-                // The G score is equal to the parent G score plus the cost to move from the parent to it
-                step.gScore = currentStep.gScore + moveCost;
-                
-                // Compute the H score, which is the estimated move cost to move from that step
-                // to the desired cell coordinate
-                step.hScore = [self computeHScoreFromCoordinate:step.position
-                                                   toCoordinate:destinationCell.coordinate];
-                
-                // Adding it with the function which is preserving the list ordered by F score
-                [self insertStep:step inList:openSteps];
-                
-            } else { // Already in the open list
-                
-                // To retrieve the old one, which has its scores already computed
-                step = [openSteps objectAtIndex:index];
-                
-                // Check to see if the G score for that step is lower if we use the current step to get there
-                if ((currentStep.gScore + moveCost) < step.gScore) {
-                    
-                    // The G score is equal to the parent G score plus the cost to move the parent to it
-                    step.gScore = currentStep.gScore + moveCost;
-                    
-                    // Because the G score has changed, the F score may have changed too.
-                    // So to keep the open list ordered we have to remove the step, and re-insert it with
-                    // the insert function, which is preserving the list ordered by F score.
-                    AStarPathFinding *preservedStep = [[AStarPathFinding alloc] initWithPosition:step.position];
-                    
-                    // Remove the step from the open list
-                    [openSteps removeObjectAtIndex:index];
-                    
-                    // Re-insert the step to the open list
-                    [self insertStep:preservedStep inList:openSteps];
+                if ((currentNode.gScore + moveCost) < node.gScore) {
+                    node.gScore = currentNode.gScore + moveCost;
+                    AStarPathFinding *tmp = [[AStarPathFinding alloc] initWithPosition:node.position];
+                    [openList removeObjectAtIndex:index];
+                    [self insertNode:tmp toList:openList];
                 }
+            } else {
+                node.parent = currentNode;
+                node.gScore = currentNode.gScore + moveCost;
+                node.hScore = [self computeHScoreFrom:node.position to:destinationCell.coordinate];
+                [self insertNode:node toList:openList];
             }
         }
         
-    } while ([openSteps count] > 0);
+    }
 }
 
-- (void)constructPathFromStep:(AStarPathFinding *)step
+- (void) constructMovePath: (AStarPathFinding *)path
 {
     do {
-        if (step.parent != nil) {
-            Node *cell = [self caveCellFromGridCoordinate:step.position];
+        if (path.parent) {
+            Node *cell = [self caveCellFromGridCoordinate:path.position];
             cell.nodeType = Floor;
         }
-        step = step.parent; // Go backwards
-    } while (step != nil);
+        path = path.parent;
+    } while (path);
+}
+
+- (NSInteger) computeHScoreFrom:(CGPoint)fromCoordinate to:(CGPoint)toCoordinate
+{
+    Node *cell = [self caveCellFromGridCoordinate:toCoordinate];
+    
+    NSUInteger multiplier = cell.nodeType = Wall ? 15 : 1;
+    
+    return multiplier * (abs(toCoordinate.x - fromCoordinate.x) + abs(toCoordinate.y - fromCoordinate.y));
 }
 
 - (void) setEntryAndExit
 {
-    // 1
-    NSUInteger mainCavernIndex = [self mainCavernIndex];
-    NSArray *mainCavern = (NSArray *)self.caves[mainCavernIndex];
+    NSUInteger mainCaveIndex = [self mainCaveIndex];
+    NSArray *mainCave = (NSArray *)self.caves[mainCaveIndex];
     
-    // 2
-    NSUInteger mainCavernCount = [mainCavern count];
-    Node *entranceCell = (Node *)mainCavern[arc4random() % mainCavernCount];
+    NSUInteger mainCaveCount = [mainCave count];
+    Node *entranceCell = (Node *)mainCave[arc4random() % mainCaveCount];
     
-    // 3
     [self caveCellFromGridCoordinate:entranceCell.coordinate].nodeType = Entry;
     _entrance = [self positionForGridCoordinate:entranceCell.coordinate];
     
     Node *exitCell = nil;
     CGFloat distance = 0.0f;
     
-    do
+    while (distance < self.entryExitMinRange)
     {
-        // 4
-        exitCell = (Node *)mainCavern[arc4random() % mainCavernCount];
+        exitCell = (Node *) mainCave[arc4random() % mainCaveCount];
         
-        // 5
         NSInteger a = (exitCell.coordinate.x - entranceCell.coordinate.x);
         NSInteger b = (exitCell.coordinate.y - entranceCell.coordinate.y);
         distance = a * a + b * b;
         
     }
-    while (distance < self.entryExitMinRange);
     
-    // 6
-    [self caveCellFromGridCoordinate:exitCell.coordinate].nodeType = Exit;
-    _exit = [self positionForGridCoordinate:exitCell.coordinate];
+    [self caveCellFromGridCoordinate: exitCell.coordinate].nodeType = Exit;
+    _exit = [self positionForGridCoordinate: exitCell.coordinate];
 }
 
-- (void)setTreasure
+- (void) setTreasure
 {
-    NSUInteger treasureHiddenLimit = 4;
+    NSUInteger treasureCondition = 4;
     
     for (NSUInteger x = 0; x < self.mapSize.height; x++) {
         for (NSUInteger y = 0; y < self.mapSize.width; y++) {
-            Node *cell = (Node *)self.map[x][y];
+            Node *cell = (Node *) self.map[x][y];
             
             if (cell.nodeType == Floor) {
-                NSUInteger mooreNeighborWallCount = [self countWallMooreNeighborsFromGridCoordinate:CGPointMake(y, x)];
+                NSUInteger neighborWallCount = [self countNeighborsWallFromGridCoordinate:CGPointMake(y, x)];
                 
-                if (mooreNeighborWallCount > treasureHiddenLimit) {
+                if (neighborWallCount > treasureCondition) {
                     cell.nodeType = Treasure;
                 }
             }
@@ -551,30 +488,27 @@
     }
 }
 
-- (CGPoint)gridCoordinateForPosition:(CGPoint)position
-{
-    return CGPointMake((position.x / self.tileSize.width), (position.y / self.tileSize.height));
-}
-
-- (CGRect)caveCellRectFromGridCoordinate:(CGPoint)coordinate
+- (CGRect) caveCellRectFromGridCoordinate: (CGPoint) coordinate
 {
     if ([self isValidGridCoordinate:coordinate]) {
         CGPoint cellPosition = [self positionForGridCoordinate:coordinate];
         
-        return CGRectMake(cellPosition.x - (self.tileSize.width / 2),
-                          cellPosition.y - (self.tileSize.height / 2),
-                          self.tileSize.width,
-                          self.tileSize.height);
+        return CGRectMake(cellPosition.x - (self.tileSize.width / 2), cellPosition.y - (self.tileSize.height / 2),
+                          self.tileSize.width, self.tileSize.height);
     }
     return CGRectZero;
 }
 
-- (BOOL)isEdgeAtGridCoordinate:(CGPoint)coordinate
+- (BOOL) isEdgeAtGridCoordinate: (CGPoint) coordinate
 {
-    return ((NSUInteger)coordinate.x == 0 ||
-            (NSUInteger)coordinate.x == (NSUInteger)self.mapSize.width - 1 ||
-            (NSUInteger)coordinate.y == 0 ||
-            (NSUInteger)coordinate.y == (NSUInteger)self.mapSize.height - 1);
+    return ((NSUInteger)coordinate.x == 0 || (NSUInteger)coordinate.x == (NSUInteger)self.mapSize.width - 1 ||
+            (NSUInteger)coordinate.y == 0 || (NSUInteger)coordinate.y == (NSUInteger)self.mapSize.height - 1);
 }
+
+- (CGPoint) gridCoordinateForPosition: (CGPoint) position
+{
+    return CGPointMake((position.x / self.tileSize.width), (position.y / self.tileSize.height));
+}
+
 
 @end

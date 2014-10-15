@@ -10,7 +10,7 @@
 
 @class Node;
 
-@interface Dungeon : SKNode
+@interface Dungeon : SKNode 
 
 @property (strong, nonatomic, readonly) SKTextureAtlas *atlas;
 

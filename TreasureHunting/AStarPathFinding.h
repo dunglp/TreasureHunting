@@ -15,7 +15,9 @@
 @property (assign, nonatomic) NSInteger hScore;
 @property (strong, nonatomic) AStarPathFinding *parent;
 
-- (id) initWithPosition: (CGPoint)pos;
-- (NSInteger) fScore;
+- (id) initWithPosition: (CGPoint) position;
+- (NSInteger) score;
++ (NSInteger) computeCostFromNode:(AStarPathFinding *)fromStep toNode:(AStarPathFinding *)toStep;
++ (NSInteger) computeHScoreFromCoordinate:(CGPoint)fromCoordinate toCoordinate:(CGPoint)toCoordinate rate:(NSUInteger) rate;
 
 @end
