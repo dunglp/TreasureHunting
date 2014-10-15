@@ -1,0 +1,416 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0065F6CF19EE763900048B83 /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 0065F6CE19EE763900048B83 /* Node.m */; };
+		0065F6D219EEAE0F00048B83 /* AStarPathFinding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0065F6D119EEAE0F00048B83 /* AStarPathFinding.m */; };
+		442C256F18B54E26006D14D1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442C256E18B54E26006D14D1 /* Foundation.framework */; };
+		442C257118B54E26006D14D1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442C257018B54E26006D14D1 /* CoreGraphics.framework */; };
+		442C257318B54E26006D14D1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442C257218B54E26006D14D1 /* UIKit.framework */; };
+		442C257518B54E26006D14D1 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442C257418B54E26006D14D1 /* SpriteKit.framework */; };
+		442C257B18B54E26006D14D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 442C257918B54E26006D14D1 /* InfoPlist.strings */; };
+		442C257D18B54E26006D14D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 442C257C18B54E26006D14D1 /* main.m */; };
+		442C258118B54E26006D14D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 442C258018B54E26006D14D1 /* AppDelegate.m */; };
+		442C258418B54E26006D14D1 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 442C258218B54E26006D14D1 /* Main_iPhone.storyboard */; };
+		442C258718B54E26006D14D1 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 442C258518B54E26006D14D1 /* Main_iPad.storyboard */; };
+		442C258A18B54E26006D14D1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 442C258918B54E26006D14D1 /* ViewController.m */; };
+		442C258D18B54E26006D14D1 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 442C258C18B54E26006D14D1 /* GameScene.m */; };
+		442C259118B54E26006D14D1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 442C259018B54E26006D14D1 /* Images.xcassets */; };
+		442C25B418B54E9D006D14D1 /* fanfare.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 442C25B018B54E9D006D14D1 /* fanfare.mp3 */; };
+		442C25B518B54E9D006D14D1 /* step.wav in Resources */ = {isa = PBXBuildFile; fileRef = 442C25B118B54E9D006D14D1 /* step.wav */; };
+		442C25B618B54E9D006D14D1 /* theforgottentemple.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 442C25B218B54E9D006D14D1 /* theforgottentemple.mp3 */; };
+		442C25B718B54E9D006D14D1 /* treasure.wav in Resources */ = {isa = PBXBuildFile; fileRef = 442C25B318B54E9D006D14D1 /* treasure.wav */; };
+		442C25B918B54EB0006D14D1 /* tiles.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 442C25B818B54EB0006D14D1 /* tiles.atlas */; };
+		442C25BC18B54F7D006D14D1 /* DPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 442C25BB18B54F7D006D14D1 /* DPad.m */; };
+		442C25BF18B54FBF006D14D1 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 442C25BE18B54FBF006D14D1 /* Player.m */; };
+		442C262D18B9FE63006D14D1 /* Dungeon.m in Sources */ = {isa = PBXBuildFile; fileRef = 442C262C18B9FE63006D14D1 /* Dungeon.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0065F6CD19EE763900048B83 /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
+		0065F6CE19EE763900048B83 /* Node.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
+		0065F6D019EEAE0F00048B83 /* AStarPathFinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AStarPathFinding.h; sourceTree = "<group>"; };
+		0065F6D119EEAE0F00048B83 /* AStarPathFinding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AStarPathFinding.m; sourceTree = "<group>"; };
+		007190C519EEC0D7008F3953 /* TreasureHunting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreasureHunting.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		442C256E18B54E26006D14D1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		442C257018B54E26006D14D1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		442C257218B54E26006D14D1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		442C257418B54E26006D14D1 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		442C257818B54E26006D14D1 /* TreasureHunting-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TreasureHunting-Info.plist"; sourceTree = "<group>"; };
+		442C257A18B54E26006D14D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		442C257C18B54E26006D14D1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		442C257E18B54E26006D14D1 /* TreasureHunting-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TreasureHunting-Prefix.pch"; sourceTree = "<group>"; };
+		442C257F18B54E26006D14D1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		442C258018B54E26006D14D1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		442C258318B54E26006D14D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		442C258618B54E26006D14D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		442C258818B54E26006D14D1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		442C258918B54E26006D14D1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		442C258B18B54E26006D14D1 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		442C258C18B54E26006D14D1 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		442C259018B54E26006D14D1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		442C259718B54E26006D14D1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		442C25B018B54E9D006D14D1 /* fanfare.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = fanfare.mp3; path = TreasureHunting/Res/Sound/fanfare.mp3; sourceTree = "<group>"; };
+		442C25B118B54E9D006D14D1 /* step.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = step.wav; path = TreasureHunting/Res/Sound/step.wav; sourceTree = "<group>"; };
+		442C25B218B54E9D006D14D1 /* theforgottentemple.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = theforgottentemple.mp3; path = TreasureHunting/Res/Sound/theforgottentemple.mp3; sourceTree = "<group>"; };
+		442C25B318B54E9D006D14D1 /* treasure.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = treasure.wav; path = TreasureHunting/Res/Sound/treasure.wav; sourceTree = "<group>"; };
+		442C25B818B54EB0006D14D1 /* tiles.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = tiles.atlas; path = TreasureHunting/Res/tiles.atlas; sourceTree = "<group>"; };
+		442C25BA18B54F7D006D14D1 /* DPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPad.h; sourceTree = "<group>"; };
+		442C25BB18B54F7D006D14D1 /* DPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPad.m; sourceTree = "<group>"; };
+		442C25BD18B54FBF006D14D1 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		442C25BE18B54FBF006D14D1 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		442C262B18B9FE63006D14D1 /* Dungeon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dungeon.h; sourceTree = "<group>"; };
+		442C262C18B9FE63006D14D1 /* Dungeon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dungeon.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		442C256818B54E26006D14D1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				442C257118B54E26006D14D1 /* CoreGraphics.framework in Frameworks */,
+				442C257318B54E26006D14D1 /* UIKit.framework in Frameworks */,
+				442C257518B54E26006D14D1 /* SpriteKit.framework in Frameworks */,
+				442C256F18B54E26006D14D1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		442C256218B54E26006D14D1 = {
+			isa = PBXGroup;
+			children = (
+				442C257618B54E26006D14D1 /* TreasureHunting */,
+				442C25AD18B54E35006D14D1 /* Res */,
+				442C257718B54E26006D14D1 /* Supporting Files */,
+				442C256D18B54E26006D14D1 /* Frameworks */,
+				007190C519EEC0D7008F3953 /* TreasureHunting.app */,
+			);
+			sourceTree = "<group>";
+		};
+		442C256D18B54E26006D14D1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				442C256E18B54E26006D14D1 /* Foundation.framework */,
+				442C257018B54E26006D14D1 /* CoreGraphics.framework */,
+				442C257218B54E26006D14D1 /* UIKit.framework */,
+				442C257418B54E26006D14D1 /* SpriteKit.framework */,
+				442C259718B54E26006D14D1 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		442C257618B54E26006D14D1 /* TreasureHunting */ = {
+			isa = PBXGroup;
+			children = (
+				442C257F18B54E26006D14D1 /* AppDelegate.h */,
+				442C258018B54E26006D14D1 /* AppDelegate.m */,
+				442C262B18B9FE63006D14D1 /* Dungeon.h */,
+				442C262C18B9FE63006D14D1 /* Dungeon.m */,
+				0065F6CD19EE763900048B83 /* Node.h */,
+				0065F6CE19EE763900048B83 /* Node.m */,
+				442C25BA18B54F7D006D14D1 /* DPad.h */,
+				442C25BB18B54F7D006D14D1 /* DPad.m */,
+				442C258B18B54E26006D14D1 /* GameScene.h */,
+				442C258C18B54E26006D14D1 /* GameScene.m */,
+				442C25BD18B54FBF006D14D1 /* Player.h */,
+				442C25BE18B54FBF006D14D1 /* Player.m */,
+				442C258818B54E26006D14D1 /* ViewController.h */,
+				442C258918B54E26006D14D1 /* ViewController.m */,
+				0065F6D019EEAE0F00048B83 /* AStarPathFinding.h */,
+				0065F6D119EEAE0F00048B83 /* AStarPathFinding.m */,
+			);
+			path = TreasureHunting;
+			sourceTree = "<group>";
+		};
+		442C257718B54E26006D14D1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				442C259018B54E26006D14D1 /* Images.xcassets */,
+				442C257818B54E26006D14D1 /* TreasureHunting-Info.plist */,
+				442C257918B54E26006D14D1 /* InfoPlist.strings */,
+				442C257C18B54E26006D14D1 /* main.m */,
+				442C257E18B54E26006D14D1 /* TreasureHunting-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = TreasureHunting;
+			sourceTree = "<group>";
+		};
+		442C25AD18B54E35006D14D1 /* Res */ = {
+			isa = PBXGroup;
+			children = (
+				442C25B818B54EB0006D14D1 /* tiles.atlas */,
+				442C25AE18B54E4B006D14D1 /* Sound */,
+				442C25AF18B54E52006D14D1 /* Storyboards */,
+			);
+			name = Res;
+			sourceTree = "<group>";
+		};
+		442C25AE18B54E4B006D14D1 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				442C25B018B54E9D006D14D1 /* fanfare.mp3 */,
+				442C25B118B54E9D006D14D1 /* step.wav */,
+				442C25B218B54E9D006D14D1 /* theforgottentemple.mp3 */,
+				442C25B318B54E9D006D14D1 /* treasure.wav */,
+			);
+			name = Sound;
+			sourceTree = "<group>";
+		};
+		442C25AF18B54E52006D14D1 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				442C258218B54E26006D14D1 /* Main_iPhone.storyboard */,
+				442C258518B54E26006D14D1 /* Main_iPad.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		442C256A18B54E26006D14D1 /* TreasureHunting */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 442C25A718B54E26006D14D1 /* Build configuration list for PBXNativeTarget "TreasureHunting" */;
+			buildPhases = (
+				442C256718B54E26006D14D1 /* Sources */,
+				442C256818B54E26006D14D1 /* Frameworks */,
+				442C256918B54E26006D14D1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TreasureHunting;
+			productName = TreasureHunting;
+			productReference = 007190C519EEC0D7008F3953 /* TreasureHunting.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		442C256318B54E26006D14D1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Kim Pedersen";
+			};
+			buildConfigurationList = 442C256618B54E26006D14D1 /* Build configuration list for PBXProject "TreasureHunting" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 442C256218B54E26006D14D1;
+			productRefGroup = 442C256218B54E26006D14D1;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				442C256A18B54E26006D14D1 /* TreasureHunting */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		442C256918B54E26006D14D1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				442C25B718B54E9D006D14D1 /* treasure.wav in Resources */,
+				442C25B518B54E9D006D14D1 /* step.wav in Resources */,
+				442C259118B54E26006D14D1 /* Images.xcassets in Resources */,
+				442C258718B54E26006D14D1 /* Main_iPad.storyboard in Resources */,
+				442C25B618B54E9D006D14D1 /* theforgottentemple.mp3 in Resources */,
+				442C258418B54E26006D14D1 /* Main_iPhone.storyboard in Resources */,
+				442C25B918B54EB0006D14D1 /* tiles.atlas in Resources */,
+				442C25B418B54E9D006D14D1 /* fanfare.mp3 in Resources */,
+				442C257B18B54E26006D14D1 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		442C256718B54E26006D14D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				442C25BC18B54F7D006D14D1 /* DPad.m in Sources */,
+				442C258D18B54E26006D14D1 /* GameScene.m in Sources */,
+				442C258A18B54E26006D14D1 /* ViewController.m in Sources */,
+				442C258118B54E26006D14D1 /* AppDelegate.m in Sources */,
+				0065F6CF19EE763900048B83 /* Node.m in Sources */,
+				442C25BF18B54FBF006D14D1 /* Player.m in Sources */,
+				442C262D18B9FE63006D14D1 /* Dungeon.m in Sources */,
+				0065F6D219EEAE0F00048B83 /* AStarPathFinding.m in Sources */,
+				442C257D18B54E26006D14D1 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		442C257918B54E26006D14D1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				442C257A18B54E26006D14D1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		442C258218B54E26006D14D1 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				442C258318B54E26006D14D1 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			path = TreasureHunting;
+			sourceTree = "<group>";
+		};
+		442C258518B54E26006D14D1 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				442C258618B54E26006D14D1 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			path = TreasureHunting;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		442C25A518B54E26006D14D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		442C25A618B54E26006D14D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		442C25A818B54E26006D14D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TreasureHunting/TreasureHunting-Prefix.pch";
+				INFOPLIST_FILE = "TreasureHunting/TreasureHunting-Info.plist";
+				PRODUCT_NAME = TreasureHunting;
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		442C25A918B54E26006D14D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TreasureHunting/TreasureHunting-Prefix.pch";
+				INFOPLIST_FILE = "TreasureHunting/TreasureHunting-Info.plist";
+				PRODUCT_NAME = TreasureHunting;
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		442C256618B54E26006D14D1 /* Build configuration list for PBXProject "TreasureHunting" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				442C25A518B54E26006D14D1 /* Debug */,
+				442C25A618B54E26006D14D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		442C25A718B54E26006D14D1 /* Build configuration list for PBXNativeTarget "TreasureHunting" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				442C25A818B54E26006D14D1 /* Debug */,
+				442C25A918B54E26006D14D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 442C256318B54E26006D14D1 /* Project object */;
+}
